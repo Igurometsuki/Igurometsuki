@@ -1,0 +1,294 @@
+#EXPERIMENT -2 ABELIAN PROPERTY
+
+z = [0,1,2,3,4]
+z = set(z)
+n = len(z)
+print(z)
+def addmod(x,y):
+    return (x+y)%n
+def multmod(x,y):
+    return (x*y)%n
+
+#Checking whether set is commutative or not
+for i in z:
+    for j in z:
+        if(multmod(i,j)==multmod(j,i)):
+            flag=1
+        else:
+            flag=0
+            break;
+if (flag==0):
+        print('Abelian property fails under multiplication')
+else:
+        print('Abelian property is satisfied under multiplication')
+
+
+
+
+
+
+
+
+#EXPERIMENT-3 MULTIPLICATIVE IDENTITY
+z = [0,1,2,3,4]
+z = list(z)
+n = len(z)
+print(z)
+def addmod(x,y):
+    return (x+y)%n
+def multmod(x,y):
+    return (x*y)%n
+#MULTIPLICATIVE IDENTITIY 
+flag = 1
+for i in range(n):
+    if multmod(z[1],z[i])==z[i] and multmod(z[i],z[1])==z[i]:
+        flag = 1
+    else:
+        flag = 0
+        break
+if (flag==0):
+    print('Multiplicative identity does not exist')
+else:
+    print('Multiplicative identitity is 1 and hence the ring is with unity')
+
+
+
+
+
+
+
+
+
+
+
+
+#EXPERIMENT-4 ZERO DIVISORS
+z = [0, 1, 2, 3, 4, 5]
+z = list(z)
+n = len(z)
+print("Z =", z)
+def addmod(x, y):
+    return (x + y) % n
+
+def multmod(x, y):
+    return (x * y) % n
+
+flag = 0
+for i in range(n):
+    for j in range(n):
+        if multmod(z[i], z[j]) == 0 and z[i] != 0 and z[j] != 0:
+            print('Zero divisors are:', z[i], 'and', z[j])
+            flag = 1
+
+if flag == 1:
+    print('Zero divisors exist')
+else:
+    print('Zero divisors do not exist')
+
+
+
+
+
+
+
+
+
+#EXPERIMENT-5 MULTIPLICATIVE INVERSES
+z = [0, 1, 2, 3, 4]
+original_n = len(z)  # Modulus is 5
+nonzero_z = set(z) - {0}  # Remove 0
+print("Non-zero elements:", nonzero_z)
+
+def multmod(x, y):
+    return (x * y) % original_n  # Multiplication mod 5
+
+S2 = set()  # Elements with inverses
+
+# Find multiplicative inverses
+for a in nonzero_z:
+    for b in nonzero_z:
+        if multmod(a, b) == 1 and multmod(b, a) == 1:
+            print(f'Multiplicative inverse of {a} is {b}')
+            S2.add(a)
+
+print("Elements with inverses:", S2)
+
+# Check if all non-zero elements have inverses (field condition)
+if S2 == nonzero_z:
+    print('Multiplicative inverses exist for all non-zero elements. Hence, the given ring is a field.')
+else:
+    print('Multiplicative inverses do not exist for all non-zero elements. Hence, it is not a field.')
+
+
+
+
+
+
+
+
+
+
+#EXPERIMENT 6 A LINEAR COMBINATION
+from sympy import*
+var('a,b')
+v1 = [2,-1,1]
+v2 = [1,-3,2]
+v = [1,7,-4]
+A = Matrix([v1,v2,v]).T
+soln = solve_linear_system(A,a,b)
+if soln == None:
+    print('Given vector cannot be expressed as a linear combination')
+else:
+    print('Given vector can be expressed as linear combination with scalars',soln)
+
+
+
+
+
+#EXPERIMENT 6B 
+from sympy import*
+var('a,b,c')
+v1 = [1,2,3]
+v2 = [2,3,7]
+v3 = [3,5,6]
+v = [3,7,-4]
+A = Matrix([v1,v2,v3,v]).T
+soln = solve_linear_system(A,a,b,c)
+if soln == None:
+    print('Given vector cannot be expressed as a linear combination')
+else:
+    print('Given vector can be expressed as linear combination with scalars',soln)
+
+
+
+
+
+
+
+
+#EXPERIMENT-7A
+from sympy import*
+A = Matrix([[1,1,-1],[2,-3,5],[-2,1,4]])
+pprint(A)
+d = det(A)
+print('|A|=',d)
+if d == 0:
+    print('Given vectors are not linearlly dependent')
+else:
+    print('Given vectors are linearly dependent')
+
+
+
+
+
+
+
+
+
+
+
+#EXPERIMENT-7B
+from sympy import*
+a,b,c,d = symbols('a,b,c,d')
+eq1 = Eq(a-3*b+c+d,0)
+eq2 = Eq(a+b+c+2*d,0)
+eq3 = Eq(2*a+c-3*d,0)
+sol = solve((eq1,eq2,eq3),(a,b,c,d))
+pprint(sol)
+if sol[a] == 0 and sol[b] == 0 and sol[c] == 0 and sol[d] == 0:
+    print('Given vecotors are linearly independent')
+else:
+    print('Given vectors are linearly independent')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#EXPERIMENT-8A
+from sympy import*
+A = Matrix([[1,1,0],[0,1,0],[0,1,1]])
+pprint(A)
+d = det(A)
+print('|A|=',d)
+if d == 0:
+    print('Given vecotrs are linearly dependent. Hence it doesn"t form a basis')
+else:
+    print('Given vectors are linearly independent')
+
+
+
+
+
+
+
+
+
+
+#EXPERIMENT-8B
+from sympy import*
+A = Matrix([[1,2,3],[3,1,0],[-2,1,3]])
+pprint(A)
+d = det(A)
+print('|A|=',d)
+if d == 0:
+    print('Given vecotrs are linearly dependent. Hence it doesn"t form a basis')
+else:
+    print('Given vectors are linearly independent')
+B = A.echelon_form()
+print(B,'is the basis of subspace')
+print('Dimension of subspace is:',B.rank())
+
+
+
+
+
+
+
+
+#EXPERIMENT-9A
+from sympy import*
+
+x, y, x1, y1, x2, y2, c = symbols('x y x1 y1 x2 y2 c')
+
+def T(v): return [v[0] + v[1], v[0]]
+
+X = [x, y]
+A = [x1, y1]
+B = [x2, y2]
+
+print('Given Transformation is T(x, y) =', T(X))
+
+L1 = T([A[0] + B[0], A[1] + B[1]])
+R1 = [T(A)[0] + T(B)[0], T(A)[1] + T(B)[1]]
+print('L1 =', L1)
+print('R1 =', R1)
+
+L2 = T([c * A[0], c * A[1]])
+R2 = [c * T(A)[0], c * T(A)[1]]
+print('L2 =', L2)
+print('R2 =', R2)
+
+if all(simplify(L1[i] - R1[i]) == 0 and simplify(L2[i] - R2[i]) == 0 for i in range(2)):
+    print('T is a linear transformation')
+else:
+    print('T is not a linear transformation')
+
+
+
+
+
+
+
+
+
+
